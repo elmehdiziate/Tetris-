@@ -1,0 +1,2 @@
+Library needed (Pygame): pip install pygame
+run main.py: python main.py
