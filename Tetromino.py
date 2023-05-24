@@ -11,7 +11,13 @@ class Block(pg.sprite.Sprite):
         self.image = pg.Surface([TILE_SIZE, TILE_SIZE])
         self.image.fill('purple')
         self.rect = self.image.get_rect()
+
+    def set_pos(self):
         self.rect.topleft = self.pos * TILE_SIZE
+    
+    def update(self):
+        self.set_pos()
+    
     
 
 
