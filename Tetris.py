@@ -18,8 +18,10 @@ class Tetris:
                 pg.draw.rect(self.app.screen, "white",
                              (x* TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), 1)
     def update(self):
-        self.tetromino.update()
+        if self.app.anime_trigger == True:
+            self.tetromino.update()
         self.sprite_group.update()
+
     def draw(self):
         self.draw_grid()
         self.sprite_group.draw(self.app.screen)

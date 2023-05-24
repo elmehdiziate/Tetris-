@@ -7,8 +7,12 @@ FIELD_COLOR = (30, 30, 30)
 MOVEMENT_DIRECTION = {'left' : vec(-1,0), 
                       'right': vec(1,0), 
                       'down' : vec(0,1)}
-TILE_SIZE = 20
-FIELD_SIZE = FIELD_W, FIELD_H = 15, 30
+
+
+# handling pressing key delay
+TIME_INTERVAL = 150
+TILE_SIZE = 30
+FIELD_SIZE = FIELD_W, FIELD_H = 10, 20
 FIELD_RES = FIELD_W * TILE_SIZE, FIELD_H * TILE_SIZE
 INIT_POS_OFFSET = vec(FIELD_W // 2 - 1, 0)
 #dictionary for the shapes (tetriminos)
