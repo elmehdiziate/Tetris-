@@ -7,7 +7,19 @@ class Tetris:
         self.sprite_group = pg.sprite.Group()
         self.field_array = self.get_array()
         self.tetromino = Tetromino(self)
-    
+    def check_lines(self):
+        row = FIELD_H - 1
+        for y in range(FIELD_H - 1, -1, -1):
+            for x in range(FIELD_W):
+                self.field_array[row][x] = self.field_array[y][x]
+                if self.field_array[y][x]:
+                    self.field_array[row][x].pos = vec(x,y)
+            if sum(map(bool, self.field_array[y])) < FIELD_W:
+                row -= 1
+            else: 
+                for x in range(FIELD_W):
+                    self.field_array[row][x].alive = False
+                    self.field_array[row][x] = 0
     def put_blocks_in_array(self):
         for block in self.tetromino.blocks:
             x,y = int(block.pos.x), int(block.pos.y)
@@ -38,6 +50,7 @@ class Tetris:
                              (x* TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), 1)
     def update(self):
         if self.app.anime_trigger == True:
+            self.check_lines()
             self.tetromino.update()
             self.check_landing()
         self.sprite_group.update()

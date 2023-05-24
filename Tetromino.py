@@ -7,11 +7,14 @@ class Block(pg.sprite.Sprite):
     def __init__(self, tetromino, pos):
         self.tetromino = tetromino
         self.pos = pos + INIT_POS_OFFSET
+        self.alive = True
         super().__init__(tetromino.tetris.sprite_group)
         self.image = pg.Surface([TILE_SIZE, TILE_SIZE])
         pg.draw.rect(self.image, 'purple', (1,1,TILE_SIZE - 2, TILE_SIZE - 2), border_radius=5)
         self.rect = self.image.get_rect()
-        
+    def is_alive(self):
+        if not self.alive:
+            self.kill()   
     def rotate_right(self, pivot):
         translated = self.pos - pivot
         rotated = translated.rotate(90)
@@ -26,6 +29,7 @@ class Block(pg.sprite.Sprite):
         self.rect.topleft = self.pos * TILE_SIZE
     
     def update(self):
+        self.is_alive()
         self.set_pos()
     def collide(self, pos):
         x , y = int(pos.x), int(pos.y)
