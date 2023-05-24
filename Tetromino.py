@@ -19,9 +19,9 @@ class Block(pg.sprite.Sprite):
         self.set_pos()
     def collide(self, pos):
         x , y = int(pos.x), int(pos.y)
-        if 0<x< FIELD_W and y< FIELD_H:
-            return False
-        return True
+        if x < 0 or y < 0 or x >= FIELD_W or y >= FIELD_H:
+            return True
+        return False
     
     
 
