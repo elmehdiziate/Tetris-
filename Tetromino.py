@@ -17,6 +17,11 @@ class Block(pg.sprite.Sprite):
     
     def update(self):
         self.set_pos()
+    def collide(self, pos):
+        x , y = int(pos.x), int(pos.y)
+        if 0<x< FIELD_W and y< FIELD_H:
+            return False
+        return True
     
     
 
@@ -26,11 +31,18 @@ class Tetromino:
         self.tetris = tetris
         self.shape = random.choice(list(TETROMINOS.keys()))
         self.blocks = [Block(self, pos) for pos in TETROMINOS[self.shape]]
+    
+    def collide(self, blocks_position):
+        return any(map(Block.collide, self.blocks, blocks_position))
 
     def move(self,  direction):
         move_direction = MOVEMENT_DIRECTION[direction]
-        for block in self.blocks:
-            block.pos += move_direction
+        new_positions = [block.pos + move_direction for block in self.blocks]
+        is_collide = self.collide(new_positions)
+        
+        if not is_collide:             
+            for block in self.blocks:
+                block.pos += move_direction
 
     def update(self):
         self.move(direction = 'down')
