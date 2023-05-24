@@ -33,6 +33,6 @@ class Tetromino:
             block.pos += move_direction
 
     def update(self):
-        self.move('down')
+        self.move(direction = 'down')
         #solution for now (need to investigate more)
-        pg.time.wait(350)
+        pg.time.wait(200)
