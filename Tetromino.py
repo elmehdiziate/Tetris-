@@ -34,6 +34,5 @@ class Tetromino:
 
     def update(self):
         self.move('down')
-
-    def draw(self):
-        pass
+        #solution for now (need to investigate more)
+        pg.time.wait(350)
