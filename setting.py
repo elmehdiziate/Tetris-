@@ -2,7 +2,8 @@ import pygame as pg
 
 vec = pg.math.Vector2
 FPS = 60
-FIELD_COLOR = (30, 30, 30)
+FIELD_COLOR = (139, 69, 19)
+COLORS = {'purple', 'green', 'blue', 'red'}
 
 MOVEMENT_DIRECTION = {'left' : vec(-1,0), 
                       'right': vec(1,0), 
@@ -11,6 +12,7 @@ MOVEMENT_DIRECTION = {'left' : vec(-1,0),
 
 # handling pressing key delay
 TIME_INTERVAL = 150
+FAST_INTERVAL = 45
 TILE_SIZE = 30
 FIELD_SIZE = FIELD_W, FIELD_H = 10, 20
 FIELD_RES = FIELD_W * TILE_SIZE, FIELD_H * TILE_SIZE

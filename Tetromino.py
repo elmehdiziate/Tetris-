@@ -10,7 +10,7 @@ class Block(pg.sprite.Sprite):
         self.alive = True
         super().__init__(tetromino.tetris.sprite_group)
         self.image = pg.Surface([TILE_SIZE, TILE_SIZE])
-        pg.draw.rect(self.image, 'purple', (1,1,TILE_SIZE - 2, TILE_SIZE - 2), border_radius=5)
+        pg.draw.rect(self.image, self.tetromino.color, (1,1,TILE_SIZE - 2, TILE_SIZE - 2), border_radius=5)
         self.rect = self.image.get_rect()
     def is_alive(self):
         if not self.alive:
@@ -45,6 +45,7 @@ class Block(pg.sprite.Sprite):
 class Tetromino:
     def __init__(self, tetris):
         self.tetris = tetris
+        self.color = random.choice(list(COLORS))    
         self.shape = random.choice(list(TETROMINOS.keys()))
         self.blocks = [Block(self, pos) for pos in TETROMINOS[self.shape]]
         self.landing = False

@@ -1,7 +1,6 @@
 from setting import *
 import pygame as pg
 import sys
-import time
 from Tetris import Tetris
 
 class App:
@@ -16,11 +15,8 @@ class App:
     
     def set_timer(self):
         self.user_event = pg.USEREVENT + 0
-        self.fast_event = pg.USEREVENT + 1
         self.anime_trigger = False
-        self.fast_trigger = False
-        pg.time.set_timer(self.user_event, TIME_INTERVAL*3)
-        pg.time.set_timer(self.fast_event, FAST_INTERVAL)
+        pg.time.set_timer(self.user_event, TIME_INTERVAL)
     def update(self):
         self.tetris.update()
         self.clock.tick(FPS)
@@ -32,7 +28,6 @@ class App:
 
     def check_events(self):
         self.anime_trigger = False
-        self.fast_trigger = False
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
@@ -41,13 +36,10 @@ class App:
                 self.tetris.control(pressed_key = event.key)
             elif event.type == self.user_event:
                 self.anime_trigger = True
-            elif event.type == self.fast_event:
-                self.fast_trigger = True
 
     def run(self):
         while True:
             self.check_events()
-            #time.sleep(0.2)
             self.update()
             self.draw()
 

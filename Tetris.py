@@ -7,6 +7,7 @@ class Tetris:
         self.sprite_group = pg.sprite.Group()
         self.field_array = self.get_array()
         self.tetromino = Tetromino(self)
+        self.speed_up = False
     def check_lines(self):
         row = FIELD_H - 1
         for y in range(FIELD_H - 1, -1, -1):
@@ -30,6 +31,7 @@ class Tetris:
     
     def check_landing(self):
         if self.tetromino.landing:
+            self.speed_up = False
             self.put_blocks_in_array()
             self.tetromino = Tetromino(self)
     
@@ -42,14 +44,17 @@ class Tetris:
             self.tetromino.rotate_right()
         elif pressed_key == pg.K_z:
             self.tetromino.rotate_left()
+        elif pressed_key == pg.K_DOWN:
+            self.speed_up = True
     
     def draw_grid(self):
         for x in range(FIELD_W):
             for y in range(FIELD_H):
-                pg.draw.rect(self.app.screen, "white",
+                pg.draw.rect(self.app.screen, "black",
                              (x* TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), 1)
     def update(self):
-        if self.app.anime_trigger == True:
+        trigger = [self.app.anime_trigger, self.app.fast_trigger][self.speed_up]
+        if trigger == True:
             self.check_lines()
             self.tetromino.update()
             self.check_landing()
