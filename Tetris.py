@@ -1,6 +1,16 @@
 from setting import *
 import math
 from Tetromino import Tetromino
+import pygame.freetype as ft
+
+class Content:
+    def __init__(self, app) :
+        self.app = app
+        self.font = ft.Font(FONT_PATH)
+    def draw(self):
+        self.font.render_to(self.app.screen, (WIN_W*0.6 , WIN_H*0.02), 
+                            text="TETRIS-", fgcolor='white', size = TILE_SIZE *1.75, 
+                            bgcolor='black')
 class Tetris:
     def __init__(self, app):
         self.app = app
@@ -8,6 +18,11 @@ class Tetris:
         self.field_array = self.get_array()
         self.tetromino = Tetromino(self)
         self.speed_up = False
+        self.next_tetromino = Tetromino(self, current = False)
+    def game_over(self):
+        if self.tetromino.blocks[0].pos.y == INIT_POS_OFFSET[1]:
+            pg.time.wait(300)
+            return True
     def check_lines(self):
         row = FIELD_H - 1
         for y in range(FIELD_H - 1, -1, -1):
@@ -31,9 +46,14 @@ class Tetris:
     
     def check_landing(self):
         if self.tetromino.landing:
-            self.speed_up = False
-            self.put_blocks_in_array()
-            self.tetromino = Tetromino(self)
+            if self.game_over():
+                self.app.__init__()
+            else:
+                self.speed_up = False
+                self.put_blocks_in_array()
+                self.next_tetromino.current = True
+                self.tetromino = self.next_tetromino
+                self.next_tetromino = Tetromino(self, current=False)
     
     def control(self, pressed_key):
         if pressed_key == pg.K_LEFT:

@@ -1,17 +1,17 @@
 from setting import *
 import pygame as pg
 import sys
-import time
-from Tetris import Tetris
+from Tetris import Tetris, Content
 
 class App:
     def __init__(self):
         pg.init()
         pg.display.set_caption('Tetris')
-        self.screen = pg.display.set_mode(FIELD_RES)
+        self.screen = pg.display.set_mode(WIN_RES)
         self.clock = pg.time.Clock()
         self.set_timer()
         self.tetris = Tetris(self)
+        self.content = Content(self)
     
     
     def set_timer(self):
@@ -26,8 +26,10 @@ class App:
         self.clock.tick(FPS)
 
     def draw(self):       
-        self.screen.fill(color=FIELD_COLOR)
+        self.screen.fill(color=BG_COLOR)
+        self.screen.fill(color=FIELD_COLOR, rect=(0,0, *FIELD_RES))
         self.tetris.draw()
+        self.content.draw()
         pg.display.flip()
 
     def check_events(self):
@@ -47,7 +49,6 @@ class App:
     def run(self):
         while True:
             self.check_events()
-            #time.sleep(0.2)
             self.update()
             self.draw()
 
