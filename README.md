@@ -12,3 +12,5 @@
 - Right arrow : makes currently falling piece move right.
 - Left arrow : makes currently falling piece move left.
 - Down arrow: speed up the currently falling piece.
+## Game:
+![image](https://github.com/elmehdiziate/Tetris-/assets/109172506/9e6dc02d-0bdb-46f0-8e6c-a895a75586ce)
